@@ -4,6 +4,8 @@
 #include <math.h>
 #include "ukf.h"
 #include "tools.h"
+#include <typeinfo>
+#include <vector>
 
 using namespace std;
 
@@ -28,8 +30,9 @@ std::string hasData(std::string s) {
 
 int main()
 {
+  
   uWS::Hub h;
-
+  
   // Create a Kalman Filter instance
   UKF ukf;
 
@@ -38,14 +41,16 @@ int main()
   vector<VectorXd> estimations;
   vector<VectorXd> ground_truth;
 
+  // cout<<typeid(h).name()<<endl;
+  // cout<<"hello2"<<endl;
   h.onMessage([&ukf,&tools,&estimations,&ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
-
+    // cout<<"hello"<<endl;
     if (length && length > 2 && data[0] == '4' && data[1] == '2')
     {
-
+      // cout<<"hello1"<<endl;
       auto s = hasData(std::string(data));
       if (s != "") {
       	
@@ -147,7 +152,6 @@ int main()
         ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
       }
     }
-
   });
 
   // We don't need this since we're not using HTTP but if it's removed the program

@@ -6,9 +6,11 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <vector>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
+using namespace std;
 
 class UKF {
 public:
@@ -29,10 +31,10 @@ public:
   MatrixXd P_;
 
   ///* predicted sigma points matrix
-  MatrixXd Xsig_pred_;
+  MatrixXd X_sig_pred;
 
   ///* time when the state is true, in us
-  long long time_us_;
+  long time_us_;
 
   ///* Process noise standard deviation longitudinal acceleration in m/s^2
   double std_a_;
@@ -56,17 +58,20 @@ public:
   double std_radrd_ ;
 
   ///* Weights of sigma points
-  VectorXd weights_;
+  VectorXd weights_pred;
+  VectorXd weights_aug;
 
   ///* State dimension
   int n_x_;
 
   ///* Augmented state dimension
-  int n_aug_;
+  int n_aug;
 
   ///* Sigma point spreading parameter
-  double lambda_;
+  double lambda_pred;
+  double lambda_aug;
 
+  
 
   /**
    * Constructor
